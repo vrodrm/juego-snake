@@ -34,6 +34,9 @@ function inicio() {
                 cambiarDireccion(KeyboardEvent.code);
         }
 
+        colorearTablero();
+        mostrarTablero();
+
         setTimeout(() => {
                 actualizarTablero();
         }, 2000);
@@ -48,7 +51,6 @@ function actualizarTablero() {
                                 if (tablero[i][j] == 1) {
                                         xCabeza = i;
                                         yCabeza = j;
-                                        console.log('cabeza encontrada');
                                         break;
                                 }
                         }
@@ -124,7 +126,20 @@ function cambiarDireccion(codigoTecla) {
         }
 }
 
+function colorearTablero(){
+        let color = true;
+        document.querySelectorAll('.casilla').forEach((casilla) => {
+                if(color){
+                        casilla.style.backgroundColor = '#141D73';
+                } else {
+                        casilla.style.backgroundColor = '#464180';
+                }
+                color = !color;
+        });
+}
+
 function mostrarTablero() {
+        /*
         let htmlTablero = '<table>';
         for (let i = 0; i < 15; i++) {
                 htmlTablero += '<tr>';
@@ -135,4 +150,5 @@ function mostrarTablero() {
         }
         htmlTablero += '</table>';
         document.getElementById('tablero').innerHTML = htmlTablero;
+        */
 }
