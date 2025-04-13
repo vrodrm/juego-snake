@@ -38,7 +38,7 @@ function inicio() {
         document.getElementById('img4-7').src = '../assets/img/cabeza.png';
         longitudSerpiente = 3;
 
-        colocarEstrella();
+        colocarEstrella(); 
 
         setTimeout(() => {
                 actualizarTablero();
@@ -47,6 +47,7 @@ function inicio() {
 
 function actualizarTablero() {
         let xCabeza, yCabeza;
+        let nuevaX, nuevaY;
         tiempo = setInterval(() => {
                 //Buscamos la cabeza de la serpiente
                 for (let i = 0; i < 17; i++) {
@@ -68,11 +69,11 @@ function actualizarTablero() {
                                 }
                         }
                 }
-                
+
                 // Buscamos la nueva cola y la pintamos
                 for (let i = 0; i < 17; i++) {
                         for (let j = 0; j < 15; j++) {
-                                if (tablero[i][j] === longitudSerpiente-1) {
+                                if (tablero[i][j] === longitudSerpiente - 1) {
                                         document.getElementById('img' + i + '-' + j).src = '../assets/img/cola.png';
                                         break;
                                 }
@@ -82,7 +83,7 @@ function actualizarTablero() {
                 //Movemos el resto de la serpiente
                 for (let i = 0; i < 17; i++) {
                         for (let j = 1; j < 15; j++) {
-                                if (tablero[i][j] != VACIO) {
+                                if (tablero[i][j] > VACIO) {
                                         tablero[i][j] = tablero[i][j] + 1;
                                 }
                         }
@@ -92,55 +93,71 @@ function actualizarTablero() {
                 switch (nuevaDireccion) {
                         case ARRIBA:
                                 if (direccion != ABAJO) {
-                                        tablero[xCabeza][yCabeza - 1] = 1;
+                                        nuevaX = xCabeza;
+                                        nuevaY = yCabeza - 1;
                                         document.getElementById('img' + xCabeza + '-' + yCabeza).src = '../assets/img/cuerpo.png';
                                         document.getElementById('img' + xCabeza + '-' + (yCabeza - 1)).src = '../assets/img/cabeza.png';
                                         direccion = ARRIBA;
-                                } else  {
-                                        tablero[xCabeza][yCabeza + 1] = 1;
+                                } else {
+                                        nuevaX = xCabeza;
+                                        nuevaY = yCabeza + 1;
                                         document.getElementById('img' + xCabeza + '-' + yCabeza).src = '../assets/img/cuerpo.png';
                                         document.getElementById('img' + xCabeza + '-' + (yCabeza + 1)).src = '../assets/img/cabeza.png';
                                 }
                                 break;
                         case ABAJO:
                                 if (direccion != ARRIBA) {
-                                        tablero[xCabeza][yCabeza + 1] = 1;
+                                        nuevaX = xCabeza;
+                                        nuevaY = yCabeza + 1;
                                         document.getElementById('img' + xCabeza + '-' + yCabeza).src = '../assets/img/cuerpo.png';
                                         document.getElementById('img' + xCabeza + '-' + (yCabeza + 1)).src = '../assets/img/cabeza.png';
                                         direccion = ABAJO;
                                 } else {
-                                        tablero[xCabeza][yCabeza - 1] = 1;
+                                        nuevaX = xCabeza;
+                                        nuevaY = yCabeza - 1;
                                         document.getElementById('img' + xCabeza + '-' + yCabeza).src = '../assets/img/cuerpo.png';
                                         document.getElementById('img' + xCabeza + '-' + (yCabeza - 1)).src = '../assets/img/cabeza.png';
                                 }
                                 break;
                         case DERECHA:
-                                if(direccion != IZQUIERDA) {
-                                        tablero[xCabeza + 1][yCabeza] = 1;
+                                if (direccion != IZQUIERDA) {
+                                        nuevaX = xCabeza + 1;
+                                        nuevaY = yCabeza;
                                         document.getElementById('img' + xCabeza + '-' + yCabeza).src = '../assets/img/cuerpo.png';
                                         document.getElementById('img' + (xCabeza + 1) + '-' + yCabeza).src = '../assets/img/cabeza.png';
                                         direccion = DERECHA;
                                 } else {
-                                        tablero[xCabeza - 1][yCabeza] = 1;
+                                        nuevaX = xCabeza - 1;
+                                        nuevaY = yCabeza;
                                         document.getElementById('img' + xCabeza + '-' + yCabeza).src = '../assets/img/cuerpo.png';
                                         document.getElementById('img' + (xCabeza - 1) + '-' + yCabeza).src = '../assets/img/cabeza.png';
                                 }
                                 break;
                         case IZQUIERDA:
-                                if(direccion != DERECHA) {
-                                        tablero[xCabeza - 1][yCabeza] = 1;
+                                if (direccion != DERECHA) {
+                                        nuevaX = xCabeza - 1;
+                                        nuevaY = yCabeza;
                                         document.getElementById('img' + xCabeza + '-' + yCabeza).src = '../assets/img/cuerpo.png';
                                         document.getElementById('img' + (xCabeza - 1) + '-' + yCabeza).src = '../assets/img/cabeza.png';
                                         direccion = IZQUIERDA;
                                 } else {
-                                        tablero[xCabeza + 1][yCabeza] = 1;
+                                        nuevaX = xCabeza + 1;
+                                        nuevaY = yCabeza;
                                         document.getElementById('img' + xCabeza + '-' + yCabeza).src = '../assets/img/cuerpo.png';
                                         document.getElementById('img' + (xCabeza + 1) + '-' + yCabeza).src = '../assets/img/cabeza.png';
                                 }
                                 break;
                 }
 
-                mostrarTablero();
+                
+                if (tablero[nuevaX][nuevaY] == -1) {
+                        tablero[nuevaX][nuevaY] = 1;
+                        longitudSerpiente++;
+                        colocarEstrella();
+                } else {
+                        tablero[nuevaX][nuevaY] = 1;
+                }
+
         }, 100);
 }
 
@@ -154,40 +171,40 @@ function cambiarDireccion(codigoTecla) {
         } else if (codigoTecla === 'ArrowLeft' || codigoTecla === 'KeyA') {
                 nuevaDireccion = IZQUIERDA;
         } else if (codigoTecla === 'Space') {
-                clearInterval(tiempo);  
+                clearInterval(tiempo);
                 console.log(tiempo);
         }
 }
 
 // Función para colorear el tablero y asignar imagenes a las casillas
 function colorearTablero() {
-    let color = true;
-    let x = 0, y = 0;
-    let imagen;
-    document.querySelectorAll('.casilla').forEach((casilla) => {
-        if (color) {
-            casilla.style.backgroundColor = '#141D73';
-        } else {
-            casilla.style.backgroundColor = '#464180';
-        }
-        imagen = document.createElement('img');
-        imagen.id = 'img' + x + '-' + y; 
-        casilla.appendChild(imagen);
-        x++;
-        if (x == 17) {
-            x = 0;
-            y++;
-        }
-        color = !color;
-    });
+        let color = true;
+        let x = 0, y = 0;
+        let imagen;
+        document.querySelectorAll('.casilla').forEach((casilla) => {
+                if (color) {
+                        casilla.style.backgroundColor = '#141D73';
+                } else {
+                        casilla.style.backgroundColor = '#464180';
+                }
+                imagen = document.createElement('img');
+                imagen.id = 'img' + x + '-' + y;
+                casilla.appendChild(imagen);
+                x++;
+                if (x == 17) {
+                        x = 0;
+                        y++;
+                }
+                color = !color;
+        });
 }
 
-function colocarEstrella(){
+function colocarEstrella() {
         let x = Math.floor(Math.random() * 17);
         let y = Math.floor(Math.random() * 15);
-        while(tablero[x][y] != VACIO){
-            x = Math.floor(Math.random() * 17);
-            y = Math.floor(Math.random() * 15);
+        while (tablero[x][y] != VACIO) {
+                x = Math.floor(Math.random() * 17);
+                y = Math.floor(Math.random() * 15);
         }
         tablero[x][y] = -1;
         document.getElementById('img' + x + '-' + y).src = '../assets/img/estrella.svg';
