@@ -51,7 +51,7 @@ function actualizarTablero() {
         tiempo = setInterval(() => {
                 //Buscamos la cabeza de la serpiente
                 for (let i = 0; i < 17; i++) {
-                        for (let j = 1; j < 15; j++) {
+                        for (let j = 0; j < 15; j++) {
                                 if (tablero[i][j] == 1) {
                                         xCabeza = i;
                                         yCabeza = j;
@@ -82,7 +82,7 @@ function actualizarTablero() {
 
                 //Movemos el resto de la serpiente
                 for (let i = 0; i < 17; i++) {
-                        for (let j = 1; j < 15; j++) {
+                        for (let j = 0; j < 15; j++) {
                                 if (tablero[i][j] > VACIO) {
                                         tablero[i][j] = tablero[i][j] + 1;
                                 }
@@ -95,12 +95,14 @@ function actualizarTablero() {
                                 if (direccion != ABAJO) {
                                         nuevaX = xCabeza;
                                         nuevaY = yCabeza - 1;
+                                        comprobarLimites(nuevaX, nuevaY);
                                         document.getElementById('img' + xCabeza + '-' + yCabeza).src = '../assets/img/cuerpo.png';
                                         document.getElementById('img' + xCabeza + '-' + (yCabeza - 1)).src = '../assets/img/cabeza.png';
                                         direccion = ARRIBA;
                                 } else {
                                         nuevaX = xCabeza;
                                         nuevaY = yCabeza + 1;
+                                        comprobarLimites(nuevaX, nuevaY);
                                         document.getElementById('img' + xCabeza + '-' + yCabeza).src = '../assets/img/cuerpo.png';
                                         document.getElementById('img' + xCabeza + '-' + (yCabeza + 1)).src = '../assets/img/cabeza.png';
                                 }
@@ -109,12 +111,14 @@ function actualizarTablero() {
                                 if (direccion != ARRIBA) {
                                         nuevaX = xCabeza;
                                         nuevaY = yCabeza + 1;
+                                        comprobarLimites(nuevaX, nuevaY);
                                         document.getElementById('img' + xCabeza + '-' + yCabeza).src = '../assets/img/cuerpo.png';
                                         document.getElementById('img' + xCabeza + '-' + (yCabeza + 1)).src = '../assets/img/cabeza.png';
                                         direccion = ABAJO;
                                 } else {
                                         nuevaX = xCabeza;
                                         nuevaY = yCabeza - 1;
+                                        comprobarLimites(nuevaX, nuevaY);
                                         document.getElementById('img' + xCabeza + '-' + yCabeza).src = '../assets/img/cuerpo.png';
                                         document.getElementById('img' + xCabeza + '-' + (yCabeza - 1)).src = '../assets/img/cabeza.png';
                                 }
@@ -123,12 +127,14 @@ function actualizarTablero() {
                                 if (direccion != IZQUIERDA) {
                                         nuevaX = xCabeza + 1;
                                         nuevaY = yCabeza;
+                                        comprobarLimites(nuevaX, nuevaY);
                                         document.getElementById('img' + xCabeza + '-' + yCabeza).src = '../assets/img/cuerpo.png';
                                         document.getElementById('img' + (xCabeza + 1) + '-' + yCabeza).src = '../assets/img/cabeza.png';
                                         direccion = DERECHA;
                                 } else {
                                         nuevaX = xCabeza - 1;
                                         nuevaY = yCabeza;
+                                        comprobarLimites(nuevaX, nuevaY);
                                         document.getElementById('img' + xCabeza + '-' + yCabeza).src = '../assets/img/cuerpo.png';
                                         document.getElementById('img' + (xCabeza - 1) + '-' + yCabeza).src = '../assets/img/cabeza.png';
                                 }
@@ -137,28 +143,48 @@ function actualizarTablero() {
                                 if (direccion != DERECHA) {
                                         nuevaX = xCabeza - 1;
                                         nuevaY = yCabeza;
+                                        comprobarLimites(nuevaX, nuevaY);
                                         document.getElementById('img' + xCabeza + '-' + yCabeza).src = '../assets/img/cuerpo.png';
                                         document.getElementById('img' + (xCabeza - 1) + '-' + yCabeza).src = '../assets/img/cabeza.png';
                                         direccion = IZQUIERDA;
                                 } else {
                                         nuevaX = xCabeza + 1;
                                         nuevaY = yCabeza;
+                                        comprobarLimites(nuevaX, nuevaY);
                                         document.getElementById('img' + xCabeza + '-' + yCabeza).src = '../assets/img/cuerpo.png';
                                         document.getElementById('img' + (xCabeza + 1) + '-' + yCabeza).src = '../assets/img/cabeza.png';
                                 }
                                 break;
                 }
-
                 
                 if (tablero[nuevaX][nuevaY] == -1) {
                         tablero[nuevaX][nuevaY] = 1;
                         longitudSerpiente++;
                         colocarEstrella();
                 } else {
+                        // Comprobamos si nos hemos chocado
+                        if(tablero[nuevaX][nuevaY] != VACIO){
+                                clearInterval(tiempo);
+                                gameOver();
+                        }
                         tablero[nuevaX][nuevaY] = 1;
                 }
 
+                console.log(nuevaX, nuevaY);
+
+
         }, 100);
+}
+
+function comprobarLimites(x, y){
+        if(x > 16 || x < 0 || y > 14 || y < 0){
+                gameOver();
+        }
+}
+
+function gameOver() {
+        clearInterval(tiempo);
+        alert('Game Over');
 }
 
 function cambiarDireccion(codigoTecla) {
@@ -172,7 +198,6 @@ function cambiarDireccion(codigoTecla) {
                 nuevaDireccion = IZQUIERDA;
         } else if (codigoTecla === 'Space') {
                 clearInterval(tiempo);
-                console.log(tiempo);
         }
 }
 
