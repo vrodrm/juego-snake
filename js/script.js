@@ -12,7 +12,22 @@ let nuevaDireccion = DERECHA;
 let longitudSerpiente;
 let tiempo;
 
+const imagenes = {
+    cuerpo: '../assets/img/cuerpo.png',
+    cabeza: '../assets/img/cabeza.png',
+    cola: '../assets/img/cola.png',
+    estrella: '../assets/img/estrella.svg'
+};
+
+function precargarImagenes() {
+    for (let key in imagenes) {
+        const img = new Image();
+        img.src = imagenes[key];
+    }
+}
+
 function inicio() {
+        precargarImagenes();
         // Llenamos el tablero de ceros (VACIO)
         for (let i = 0; i < 17; i++) {
                 tablero[i] = [];
@@ -33,16 +48,16 @@ function inicio() {
         tablero[2][7] = 3;
         tablero[3][7] = 2;
         tablero[4][7] = 1;
-        document.getElementById('img2-7').src = '../assets/img/cola.png';
-        document.getElementById('img3-7').src = '../assets/img/cuerpo.png';
-        document.getElementById('img4-7').src = '../assets/img/cabeza.png';
+        document.getElementById('img2-7').className = 'cola';
+        document.getElementById('img3-7').className = 'cuerpo-horizontal';
+        document.getElementById('img4-7').className = 'cabeza-derecha';
         longitudSerpiente = 3;
 
         colocarEstrella(); 
 
         setTimeout(() => {
                 actualizarTablero();
-        }, 300);
+        }, 1000);
 }
 
 function actualizarTablero() {
@@ -64,7 +79,7 @@ function actualizarTablero() {
                         for (let j = 0; j < 15; j++) {
                                 if (tablero[i][j] === longitudSerpiente) {
                                         tablero[i][j] = VACIO;
-                                        document.getElementById('img' + i + '-' + j).src = '';
+                                        document.getElementById('img' + i + '-' + j).className = 'vacio';
                                         break;
                                 }
                         }
@@ -74,7 +89,7 @@ function actualizarTablero() {
                 for (let i = 0; i < 17; i++) {
                         for (let j = 0; j < 15; j++) {
                                 if (tablero[i][j] === longitudSerpiente - 1) {
-                                        document.getElementById('img' + i + '-' + j).src = '../assets/img/cola.png';
+                                        document.getElementById('img' + i + '-' + j).className = 'cola';
                                         break;
                                 }
                         }
@@ -96,15 +111,15 @@ function actualizarTablero() {
                                         nuevaX = xCabeza;
                                         nuevaY = yCabeza - 1;
                                         comprobarLimites(nuevaX, nuevaY);
-                                        document.getElementById('img' + xCabeza + '-' + yCabeza).src = '../assets/img/cuerpo.png';
-                                        document.getElementById('img' + xCabeza + '-' + (yCabeza - 1)).src = '../assets/img/cabeza.png';
+                                        document.getElementById('img' + xCabeza + '-' + yCabeza).className = 'cuerpo-vertical';
+                                        document.getElementById('img' + xCabeza + '-' + (yCabeza - 1)).className = 'cabeza-arriba';
                                         direccion = ARRIBA;
                                 } else {
                                         nuevaX = xCabeza;
                                         nuevaY = yCabeza + 1;
                                         comprobarLimites(nuevaX, nuevaY);
-                                        document.getElementById('img' + xCabeza + '-' + yCabeza).src = '../assets/img/cuerpo.png';
-                                        document.getElementById('img' + xCabeza + '-' + (yCabeza + 1)).src = '../assets/img/cabeza.png';
+                                        document.getElementById('img' + xCabeza + '-' + yCabeza).className = 'cuerpo-vertical';
+                                        document.getElementById('img' + xCabeza + '-' + (yCabeza + 1)).className = 'cabeza-abajo';
                                 }
                                 break;
                         case ABAJO:
@@ -112,15 +127,15 @@ function actualizarTablero() {
                                         nuevaX = xCabeza;
                                         nuevaY = yCabeza + 1;
                                         comprobarLimites(nuevaX, nuevaY);
-                                        document.getElementById('img' + xCabeza + '-' + yCabeza).src = '../assets/img/cuerpo.png';
-                                        document.getElementById('img' + xCabeza + '-' + (yCabeza + 1)).src = '../assets/img/cabeza.png';
+                                        document.getElementById('img' + xCabeza + '-' + yCabeza).className = 'cuerpo-vertical';
+                                        document.getElementById('img' + xCabeza + '-' + (yCabeza + 1)).className = 'cabeza-abajo';
                                         direccion = ABAJO;
                                 } else {
                                         nuevaX = xCabeza;
                                         nuevaY = yCabeza - 1;
                                         comprobarLimites(nuevaX, nuevaY);
-                                        document.getElementById('img' + xCabeza + '-' + yCabeza).src = '../assets/img/cuerpo.png';
-                                        document.getElementById('img' + xCabeza + '-' + (yCabeza - 1)).src = '../assets/img/cabeza.png';
+                                        document.getElementById('img' + xCabeza + '-' + yCabeza).className = 'cuerpo-vertical';
+                                        document.getElementById('img' + xCabeza + '-' + (yCabeza - 1)).className = 'cabeza-arriba';
                                 }
                                 break;
                         case DERECHA:
@@ -128,15 +143,15 @@ function actualizarTablero() {
                                         nuevaX = xCabeza + 1;
                                         nuevaY = yCabeza;
                                         comprobarLimites(nuevaX, nuevaY);
-                                        document.getElementById('img' + xCabeza + '-' + yCabeza).src = '../assets/img/cuerpo.png';
-                                        document.getElementById('img' + (xCabeza + 1) + '-' + yCabeza).src = '../assets/img/cabeza.png';
+                                        document.getElementById('img' + xCabeza + '-' + yCabeza).className = 'cuerpo-horizontal';
+                                        document.getElementById('img' + (xCabeza + 1) + '-' + yCabeza).className = 'cabeza-derecha';
                                         direccion = DERECHA;
                                 } else {
                                         nuevaX = xCabeza - 1;
                                         nuevaY = yCabeza;
                                         comprobarLimites(nuevaX, nuevaY);
-                                        document.getElementById('img' + xCabeza + '-' + yCabeza).src = '../assets/img/cuerpo.png';
-                                        document.getElementById('img' + (xCabeza - 1) + '-' + yCabeza).src = '../assets/img/cabeza.png';
+                                        document.getElementById('img' + xCabeza + '-' + yCabeza).className = 'cuerpo-horizontal';
+                                        document.getElementById('img' + (xCabeza - 1) + '-' + yCabeza).className = 'cabeza-izquierda';
                                 }
                                 break;
                         case IZQUIERDA:
@@ -144,15 +159,15 @@ function actualizarTablero() {
                                         nuevaX = xCabeza - 1;
                                         nuevaY = yCabeza;
                                         comprobarLimites(nuevaX, nuevaY);
-                                        document.getElementById('img' + xCabeza + '-' + yCabeza).src = '../assets/img/cuerpo.png';
-                                        document.getElementById('img' + (xCabeza - 1) + '-' + yCabeza).src = '../assets/img/cabeza.png';
+                                        document.getElementById('img' + xCabeza + '-' + yCabeza).className = 'cuerpo-horizontal';
+                                        document.getElementById('img' + (xCabeza - 1) + '-' + yCabeza).className = 'cabeza-izquierda';
                                         direccion = IZQUIERDA;
                                 } else {
                                         nuevaX = xCabeza + 1;
                                         nuevaY = yCabeza;
                                         comprobarLimites(nuevaX, nuevaY);
-                                        document.getElementById('img' + xCabeza + '-' + yCabeza).src = '../assets/img/cuerpo.png';
-                                        document.getElementById('img' + (xCabeza + 1) + '-' + yCabeza).src = '../assets/img/cabeza.png';
+                                        document.getElementById('img' + xCabeza + '-' + yCabeza).className = 'cuerpo-horizontal';
+                                        document.getElementById('img' + (xCabeza + 1) + '-' + yCabeza).className = 'cabeza-derecha';
                                 }
                                 break;
                 }
@@ -212,7 +227,10 @@ function colorearTablero() {
                 } else {
                         casilla.style.backgroundColor = '#464180';
                 }
-                imagen = document.createElement('img');
+                imagen = document.createElement('div');
+                imagen.className = 'imagen-serpiente';
+                imagen.style.margin = 0;
+                imagen.style.padding = 0;
                 imagen.id = 'img' + x + '-' + y;
                 casilla.appendChild(imagen);
                 x++;
@@ -232,5 +250,5 @@ function colocarEstrella() {
                 y = Math.floor(Math.random() * 15);
         }
         tablero[x][y] = -1;
-        document.getElementById('img' + x + '-' + y).src = '../assets/img/estrella.svg';
+        document.getElementById('img' + x + '-' + y).className = 'estrella';
 }

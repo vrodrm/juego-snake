@@ -52,6 +52,7 @@ body {
         margin: 0px;
         width: 30px;
         height: 30px;
+        padding: 0px;
         background-color: blue;
 }
 
@@ -62,7 +63,6 @@ body {
         height: 100vh;
         width: 100%;
 }
-
 
 #titulo {
         color: white;
@@ -105,7 +105,7 @@ body {
         font-size: 50px;
 }
 
-.boton{
+.boton {
         height: 60px;
         width: 60px;
 }
@@ -120,20 +120,80 @@ body {
         gap: 10px;
 }
 
-.botones>div{
+.botones>div {
         display: flex;
         flex-direction: row;
         justify-content: center;
         gap: 50px;
 }
 
-@keyframes mover-palabra{
+.cuerpo-horizontal {
+        height: 100%;
+        width: 100%;
+        background-image: url('../assets/img/cuerpo_horizontal.png');
+        background-size: cover;
+}
+
+.cuerpo-vertical {
+        height: 100%;
+        width: 100%;
+        background-image: url('../assets/img/cuerpo_vertical.png');
+        background-size: cover;
+}
+
+.cabeza-derecha {
+        height: 100%;
+        width: 100%;
+        background-image: url('../assets/img/cabeza_derecha.png');
+        background-size: cover;
+}
+
+.cabeza-izquierda {
+        height: 100%;
+        width: 100%;
+        background-image: url('../assets/img/cabeza_izquierda.png');
+        background-size: cover;
+}
+
+.cabeza-arriba {
+        height: 100%;
+        width: 100%;
+        background-image: url('../assets/img/cabeza_arriba.png');
+        background-size: cover;
+}
+
+.cabeza-abajo {
+        height: 100%;
+        width: 100%;
+        background-image: url('../assets/img/cabeza_abajo.png');
+        background-size: cover;
+}
+
+.vacio{
+        background-image: none;
+}
+
+.cola {
+        height: 100%;
+        width: 100%;
+        background-image: url('../assets/img/cola.png');
+        background-size: cover;
+}
+
+.estrella {
+        height: 100%;
+        width: 100%;
+        background-image: url('../assets/img/estrella.svg');
+        background-size: cover;
+}
+
+@keyframes mover-palabra {
         0% {
                 transform: translate(0%, -9000%);
                 opacity: 100%;
         }
 
-        95%{
+        95% {
                 opacity: 100%;
                 transform: translate(0%, 9%);
         }
