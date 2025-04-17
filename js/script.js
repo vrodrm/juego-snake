@@ -13,7 +13,8 @@ let longitudSerpiente;
 let tiempo;
 
 const imagenes = {
-    cuerpo: '../assets/img/cuerpo.png',
+    cuerpoHorizontal: '../assets/img/cuerpo-horizontal.png',
+    cuerpoVertical: '../assets/img/cuerpo-vertical.png',
     cabeza: '../assets/img/cabeza.png',
     cola: '../assets/img/cola.png',
     estrella: '../assets/img/estrella.svg'
@@ -58,6 +59,11 @@ function inicio() {
         setTimeout(() => {
                 actualizarTablero();
         }, 1000);
+}
+
+function entrarTablero(){
+        document.getElementById('tablero').className = 'entrar';
+        inicio();
 }
 
 function actualizarTablero() {
