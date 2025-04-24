@@ -5,6 +5,7 @@ const DERECHA = 2;
 const IZQUIERDA = 3;
 
 const VACIO = 0;
+const ESTRELLA = -1;
 
 const tablero = [];
 let direccion = DERECHA;
@@ -12,19 +13,26 @@ let nuevaDireccion = DERECHA;
 let longitudSerpiente;
 let tiempo;
 
+// Rutas de las imagenes para cargarlas desde js
 const imagenes = {
-    cuerpoHorizontal: '../assets/img/cuerpo-horizontal.png',
-    cuerpoVertical: '../assets/img/cuerpo-vertical.png',
-    cabeza: '../assets/img/cabeza.png',
-    cola: '../assets/img/cola.png',
-    estrella: '../assets/img/estrella.svg'
+        cuerpoHorizontal: './assets/img/cuerpo_horizontal.png',
+        cuerpoVertical: './assets/img/cuerpo_vertical.png',
+        cabezaArriba: './assets/img/cabeza_arriba.png',
+        cabezaAbajo: './assets/img/cabeza_abajo.png',
+        cabezaIzquierda: './assets/img/cabeza_izquierda.png',
+        cabezaDerecha: './assets/img/cabeza_derecha.png',
+        cola: './assets/img/cola.png',
+        estrella: './assets/img/estrella.svg'
 };
 
+// Función para cargar las imagenes desde js
+// Lo que hace esta función es que cada imagen se cargue en el DOM
+// de manera "invisible" para que al usarla luego no tenga que volver a pedir la imagen al servidor
 function precargarImagenes() {
-    for (let key in imagenes) {
-        const img = new Image();
-        img.src = imagenes[key];
-    }
+        for (let key in imagenes) {
+                const img = new Image();
+                img.src = imagenes[key];
+        }
 }
 
 function inicio() {
@@ -54,19 +62,26 @@ function inicio() {
         document.getElementById('img4-7').className = 'cabeza-derecha';
         longitudSerpiente = 3;
 
-        colocarEstrella(); 
+        colocarEstrella();
 
         setTimeout(() => {
-                actualizarTablero();
+                actualizarTablero(100);
         }, 1000);
 }
 
-function entrarTablero(){
+function entrarTablero() {
+        document.getElementById('titulo').className = 'salir';
         document.getElementById('tablero').className = 'entrar';
         inicio();
 }
 
-function actualizarTablero() {
+function entrarPuntuaciones(){
+        document.getElementById('titulo').className = 'salir-izquierda';
+        document.getElementById('puntuaciones').className = 'entrar';
+
+}
+
+function actualizarTablero(velocidadMilisegundos) {
         let xCabeza, yCabeza;
         let nuevaX, nuevaY;
         tiempo = setInterval(() => {
@@ -80,6 +95,7 @@ function actualizarTablero() {
                                 }
                         }
                 }
+
                 //Buscamos la cola
                 for (let i = 0; i < 17; i++) {
                         for (let j = 0; j < 15; j++) {
@@ -177,28 +193,25 @@ function actualizarTablero() {
                                 }
                                 break;
                 }
-                
-                if (tablero[nuevaX][nuevaY] == -1) {
+
+                // Comprobamos si hay una estrella
+                if (tablero[nuevaX][nuevaY] == ESTRELLA) {
                         tablero[nuevaX][nuevaY] = 1;
                         longitudSerpiente++;
                         colocarEstrella();
                 } else {
                         // Comprobamos si nos hemos chocado
-                        if(tablero[nuevaX][nuevaY] != VACIO){
+                        if (tablero[nuevaX][nuevaY] != VACIO) {
                                 clearInterval(tiempo);
                                 gameOver();
                         }
                         tablero[nuevaX][nuevaY] = 1;
                 }
-
-                console.log(nuevaX, nuevaY);
-
-
-        }, 100);
+        }, velocidadMilisegundos);
 }
 
-function comprobarLimites(x, y){
-        if(x > 16 || x < 0 || y > 14 || y < 0){
+function comprobarLimites(x, y) {
+        if (x > 16 || x < 0 || y > 14 || y < 0) {
                 gameOver();
         }
 }
@@ -255,6 +268,6 @@ function colocarEstrella() {
                 x = Math.floor(Math.random() * 17);
                 y = Math.floor(Math.random() * 15);
         }
-        tablero[x][y] = -1;
+        tablero[x][y] = ESTRELLA;
         document.getElementById('img' + x + '-' + y).className = 'estrella';
 }

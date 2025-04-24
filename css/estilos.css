@@ -6,6 +6,7 @@ body {
         background-color: #efcd0e;
         background-size: 10%;
         margin: 0px;
+        overflow: hidden;
 }
 
 #patron-estrellas {
@@ -28,7 +29,6 @@ body {
         margin: auto;
         width: 700px;
         height: 600px;
-        /*animation: mover-tablero 0.6s ease-in;*/
         display: flex;
         align-items: center;
         justify-content: center;
@@ -87,6 +87,15 @@ body {
         min-height: 100%;
         overflow: hidden;
 }
+
+#titulo.salir {
+        animation: salir-titulo 1s forwards;
+}
+
+#titulo.salir-izquierda{
+        animation: salir-titulo-izquierda 1s forwards;
+}
+
 
 #titulo p {
         margin: 0px;
@@ -219,6 +228,38 @@ body {
         color: white;
 }
 
+#puntuaciones{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(400%, -50%);
+        width: 700px;
+        height: 600px;
+        background-color: white;
+        border-radius: 16px;
+}
+
+#puntuaciones h1{
+        font-family: 'Modak';
+        font-size: 48px;
+        font-weight: 100;
+        text-align: center;
+}
+
+#puntuaciones.entrar{
+        animation: entrar-puntuaciones 1s forwards;
+}
+
+@keyframes entrar-puntuaciones{
+        0% {
+                transform: translate(400%, -50%);
+        }
+
+        100% {
+                transform: translate(-50%, -50%);
+        }
+}
+
 @keyframes entrar-botones-titulo {
         0% {
                 transform: translate(0%, 9000%);
@@ -226,6 +267,24 @@ body {
 
         100% {
                 transform: translate(0%, 0%);
+        }
+}
+
+@keyframes salir-titulo {
+        0% {
+                transform: translate(-43%, -50%);
+        }
+        100% {
+                transform: translate(400%, -50%);
+        }
+}
+
+@keyframes salir-titulo-izquierda {
+        0% {
+                transform: translate(-57%, -50%);
+        }
+        100% {
+                transform: translate(-400%, -50%);
         }
 }
 
