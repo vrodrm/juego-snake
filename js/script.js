@@ -35,15 +35,52 @@ function precargarImagenes() {
         }
 }
 
+function recuperarPuntuaciones() {
+        $.ajax({
+                url: "php/recuperar_puntuaciones.php"
+        }).done(function (datos) {
+                let puntuaciones = JSON.parse(datos);
+                document.getElementById('contenedor-tabla-puntuaciones').appendChild(crearTablaPuntuaciones(puntuaciones));
+        });
+}
+
+// Función que crea una tabla de las puntuaciones
+function crearTablaPuntuaciones(puntuaciones) {
+        let tabla = document.createElement('table');
+        tabla.id = 'tabla-puntuaciones';
+
+        //Creamos la cabecera
+        let cabecera = tabla.insertRow();
+        let columnas = ['', 'Nombre', 'Puntuacion']
+        columnas.forEach(columna => {
+                let celda = document.createElement('th');
+                celda.textContent = columna;
+                cabecera.appendChild(celda);
+        });
+
+        let puesto = 1;
+        puntuaciones.forEach(puntuacion => {
+                let fila = tabla.insertRow();
+
+                let celdaPuesto = fila.insertCell();
+                celdaPuesto.textContent = '#' + puesto;
+
+                let celdaNombre = fila.insertCell();
+                celdaNombre.textContent = puntuacion.nombre;
+
+                let celdaPuntuacion = fila.insertCell();
+                celdaPuntuacion.textContent = puntuacion.puntuacion;
+
+                puesto++;
+        });
+
+        return tabla;
+}
+
+
 function inicio() {
+        recuperarPuntuaciones();
         precargarImagenes();
-        // Llenamos el tablero de ceros (VACIO)
-        for (let i = 0; i < 17; i++) {
-                tablero[i] = [];
-                for (let j = 0; j < 15; j++) {
-                        tablero[i][j] = VACIO;
-                }
-        }
 
         //Añadimos event listener para manejar cuando el usuario pulsa las teclas
         onkeydown = (KeyboardEvent) => {
@@ -51,6 +88,22 @@ function inicio() {
         }
 
         colorearTablero();
+
+        situacionInicialTablero();
+
+        setTimeout(() => {
+                actualizarTablero(100);
+        }, 1000);
+}
+
+function situacionInicialTablero() {
+        // Llenamos el tablero de ceros (VACIO)
+        for (let i = 0; i < 17; i++) {
+                tablero[i] = [];
+                for (let j = 0; j < 15; j++) {
+                        tablero[i][j] = VACIO;
+                }
+        }
 
         // Colocamos la serpiente
         // El 1 es la cabeza de la serpiente
@@ -63,10 +116,6 @@ function inicio() {
         longitudSerpiente = 3;
 
         colocarEstrella();
-
-        setTimeout(() => {
-                actualizarTablero(100);
-        }, 1000);
 }
 
 function entrarTablero() {
@@ -75,10 +124,16 @@ function entrarTablero() {
         inicio();
 }
 
-function entrarPuntuaciones(){
+function entrarPuntuaciones() {
         document.getElementById('titulo').className = 'salir-izquierda';
         document.getElementById('puntuaciones').className = 'entrar';
 
+        recuperarPuntuaciones();
+}
+
+function salirPuntuaciones() {
+        document.getElementById('titulo').className = 'entrar-izquierda';
+        document.getElementById('puntuaciones').className = 'salir';
 }
 
 function actualizarTablero(velocidadMilisegundos) {

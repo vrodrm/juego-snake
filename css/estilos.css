@@ -1,3 +1,8 @@
+@font-face {
+        font-family: 'Torus';
+        src: url('../assets/fonts/Torus\ Regular.otf');
+}
+
 * {
         box-sizing: border-box;
 }
@@ -94,6 +99,10 @@ body {
 
 #titulo.salir-izquierda{
         animation: salir-titulo-izquierda 1s forwards;
+}
+
+#titulo.entrar-izquierda{
+        animation: entrar-titulo-izquierda 1s forwards;
 }
 
 
@@ -228,6 +237,41 @@ body {
         color: white;
 }
 
+#contenedor-tabla-puntuaciones{
+        width: 80%;
+        height: 100%;
+        overflow-y: scroll;
+}
+
+#tabla-puntuaciones{
+        width: 100%;
+        border-spacing: 0 3px;
+        font-family: 'Torus';
+}
+
+#tabla-puntuaciones tr{
+        margin-top: 5px;
+        border: 7px solid white;
+        border-radius: 10px;
+}
+
+#tabla-puntuaciones td:first-child{
+        border-top-left-radius: 4px;
+        border-bottom-left-radius: 4px;
+        padding: 6px 5px;
+}
+
+#tabla-puntuaciones td:last-child{
+        border-top-right-radius: 4px;
+        border-bottom-right-radius: 4px;
+}
+
+#tabla-puntuaciones td{
+        margin: 0;
+        background-color: #141e7339;
+        text-align: center;
+}
+
 #puntuaciones{
         position: absolute;
         top: 50%;
@@ -237,10 +281,14 @@ body {
         height: 600px;
         background-color: white;
         border-radius: 16px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding-bottom: 30px;
 }
 
 #puntuaciones h1{
-        font-family: 'Modak';
+        font-family: 'Torus';
         font-size: 48px;
         font-weight: 100;
         text-align: center;
@@ -250,6 +298,10 @@ body {
         animation: entrar-puntuaciones 1s forwards;
 }
 
+#puntuaciones.salir{
+        animation: salir-puntuaciones 1s forwards;
+}
+
 @keyframes entrar-puntuaciones{
         0% {
                 transform: translate(400%, -50%);
@@ -257,6 +309,16 @@ body {
 
         100% {
                 transform: translate(-50%, -50%);
+        }
+}
+
+@keyframes salir-puntuaciones{
+        0% {
+                transform: translate(-50%, -50%);
+        }
+
+        100% {
+                transform: translate(400%, -50%);
         }
 }
 
@@ -285,6 +347,15 @@ body {
         }
         100% {
                 transform: translate(-400%, -50%);
+        }
+}
+
+@keyframes entrar-titulo-izquierda{
+        0% {
+                transform: translate(-400%, -50%);
+        }
+        100% {
+                transform: translate(-57%, -50%);
         }
 }
 
