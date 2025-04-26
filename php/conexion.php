@@ -5,11 +5,12 @@ $base = "vrodr_snake";
 $tabla = "puntuaciones";
 
 //conexión a la base de datos
-$conexion = @new mysqli("mysql-vrodr.alwaysdata.net", "vrodr", "basededatos123", $base);
+$conexion = @new mysqli("mysql-vrodr.alwaysdata.net", "vrodr", ")QSlCLV4E/_Ka0UG", $base);
 
 if (!$conexion) {
-  exit;
+  exit; 
+} else {
+        echo 'episto';
 }
 
-// para evitar problemas con acentos configuramos las querys de esta manera 
 $conexion->query("SET NAMES 'utf8'");
