@@ -13,6 +13,7 @@ let nuevaDireccion = DERECHA;
 let longitudSerpiente;
 let tiempo;
 
+
 // Rutas de las imagenes para cargarlas desde js
 const imagenes = {
         cuerpoHorizontal: './assets/img/cuerpo_horizontal.png',
@@ -33,6 +34,12 @@ function precargarImagenes() {
                 const img = new Image();
                 img.src = imagenes[key];
         }
+}
+
+function evitarScroll() {
+        document.addEventListener('gesturestart', function (e) {
+                e.preventDefault();
+        });
 }
 
 function recuperarPuntuaciones() {
@@ -134,6 +141,9 @@ function entrarPuntuaciones() {
 function salirPuntuaciones() {
         document.getElementById('titulo').className = 'entrar-izquierda';
         document.getElementById('puntuaciones').className = 'salir';
+
+        //Eliminamos la tabla puntuaciones
+        document.getElementById('tabla-puntuaciones').remove();
 }
 
 function actualizarTablero(velocidadMilisegundos) {

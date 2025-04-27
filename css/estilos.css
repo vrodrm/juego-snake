@@ -7,11 +7,21 @@
         box-sizing: border-box;
 }
 
+html,
+body {
+        touch-action: manipulation;
+        overscroll-behavior: contain;
+}
+
+
 body {
         background-color: #efcd0e;
         background-size: 10%;
         margin: 0px;
-        overflow: hidden;
+        overflow-x: hidden;
+        overflow-y: hidden;
+        max-width: 100vw;
+        max-height: 100vh;
 }
 
 #patron-estrellas {
@@ -40,12 +50,14 @@ body {
         transform: translate(-450%, 0);
 }
 
-#tablero.entrar{
+#tablero.entrar {
         animation: mover-tablero 0.6s forwards;
 }
 
 
 .filas {
+        width: 510px;
+        height: 510px;
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -53,6 +65,8 @@ body {
 }
 
 .fila {
+        width: 100%;
+        height: auto;
         margin: 0px;
         padding: 0px;
         display: flex;
@@ -60,8 +74,8 @@ body {
 
 .casilla {
         margin: 0px;
-        width: 30px;
-        height: 30px;
+        aspect-ratio: 1;
+        width: 5.88235294118%;
         padding: 0px;
         background-color: blue;
 }
@@ -71,7 +85,8 @@ body {
         align-items: center;
         justify-content: center;
         height: 100vh;
-        width: 100%;
+        width: 100vw;
+        overflow: hidden;
 }
 
 #titulo {
@@ -97,11 +112,11 @@ body {
         animation: salir-titulo 1s forwards;
 }
 
-#titulo.salir-izquierda{
+#titulo.salir-izquierda {
         animation: salir-titulo-izquierda 1s forwards;
 }
 
-#titulo.entrar-izquierda{
+#titulo.entrar-izquierda {
         animation: entrar-titulo-izquierda 1s forwards;
 }
 
@@ -197,7 +212,7 @@ body {
         background-size: cover;
 }
 
-.vacio{
+.vacio {
         background-image: none;
 }
 
@@ -215,14 +230,14 @@ body {
         background-size: cover;
 }
 
-.botones-titulo{
+.botones-titulo {
         margin-top: 80px;
         display: flex;
         gap: 30px;
         animation: entrar-botones-titulo 4s ease-in-out;
 }
 
-.boton-titulo{
+.boton-titulo {
         cursor: pointer;
         background-color: white;
         border: none;
@@ -232,52 +247,98 @@ body {
         font-size: 20px;
 }
 
-.boton-jugar{
+.boton-jugar {
         background-color: #141D73;
         color: white;
 }
 
-#contenedor-tabla-puntuaciones{
+.titulo-puntuaciones {
+        display: flex;
+        width: 100%;
+        justify-content: center;
+        align-items: center;
+        height: 65px;
+        margin: 32.16px;
+}
+
+.titulo-puntuaciones h1 {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translate(-50%);
+}
+
+.boton-volver {
+        font-family: 'Torus';
+        margin-top: 14px;
+        margin-left: 50px;
+        margin-right: auto;
+        height: 40px;
+        width: 100px;
+        border: none;
+        border-radius: 40px;
+        cursor: pointer;
+        background-color: #efcd0e;
+        font-size: 20px;
+}
+
+.boton-volver-movil {
+        display: none;
+        margin-right: auto;
+        font-size: 50px;
+        border: none;
+        background-color: white;
+        margin-left: 16px;
+        padding-bottom: 13px;
+        font-family: 'Torus';
+}
+
+#contenedor-tabla-puntuaciones {
         width: 80%;
         height: 100%;
         overflow-y: scroll;
 }
 
-#tabla-puntuaciones{
+#tabla-puntuaciones {
         width: 100%;
         border-spacing: 0 3px;
-        font-family: 'Torus';
 }
 
-#tabla-puntuaciones tr{
+#tabla-puntuaciones tr {
         margin-top: 5px;
         border: 7px solid white;
         border-radius: 10px;
 }
 
-#tabla-puntuaciones td:first-child{
+#tabla-puntuaciones tr:first-child {
+        background-color: #efcd0e4c;
+}
+
+#tabla-puntuaciones td:first-child {
         border-top-left-radius: 4px;
         border-bottom-left-radius: 4px;
         padding: 6px 5px;
 }
 
-#tabla-puntuaciones td:last-child{
+#tabla-puntuaciones td:last-child {
         border-top-right-radius: 4px;
         border-bottom-right-radius: 4px;
 }
 
-#tabla-puntuaciones td{
+#tabla-puntuaciones td {
         margin: 0;
         background-color: #141e7339;
         text-align: center;
 }
 
-#puntuaciones{
+#puntuaciones {
+        font-family: 'Torus';
         position: absolute;
         top: 50%;
         left: 50%;
-        transform: translate(400%, -50%);
+        transform: translate(-400%, -50%);
         width: 700px;
+        max-width: 100vw;
         height: 600px;
         background-color: white;
         border-radius: 16px;
@@ -287,22 +348,22 @@ body {
         padding-bottom: 30px;
 }
 
-#puntuaciones h1{
+#puntuaciones h1 {
         font-family: 'Torus';
         font-size: 48px;
         font-weight: 100;
         text-align: center;
 }
 
-#puntuaciones.entrar{
+#puntuaciones.entrar {
         animation: entrar-puntuaciones 1s forwards;
 }
 
-#puntuaciones.salir{
+#puntuaciones.salir {
         animation: salir-puntuaciones 1s forwards;
 }
 
-@keyframes entrar-puntuaciones{
+@keyframes entrar-puntuaciones {
         0% {
                 transform: translate(400%, -50%);
         }
@@ -312,7 +373,7 @@ body {
         }
 }
 
-@keyframes salir-puntuaciones{
+@keyframes salir-puntuaciones {
         0% {
                 transform: translate(-50%, -50%);
         }
@@ -336,6 +397,7 @@ body {
         0% {
                 transform: translate(-43%, -50%);
         }
+
         100% {
                 transform: translate(400%, -50%);
         }
@@ -345,17 +407,19 @@ body {
         0% {
                 transform: translate(-57%, -50%);
         }
+
         100% {
                 transform: translate(-400%, -50%);
         }
 }
 
-@keyframes entrar-titulo-izquierda{
+@keyframes entrar-titulo-izquierda {
         0% {
                 transform: translate(-400%, -50%);
         }
+
         100% {
-                transform: translate(-57%, -50%);
+                transform: translate(-50%, -50%);
         }
 }
 
@@ -399,4 +463,51 @@ body {
         100% {
                 transform: translate(0%, 0%);
         }
+}
+
+@media (max-width: 576px) {
+
+        #puntuaciones {
+                height: 100%;
+                border-radius: 0;
+        }
+
+        #puntuaciones h1 {
+                font-size: 36px;
+                margin-top: 42px;
+        }
+
+        .botones-titulo {
+                flex-direction: column;
+        }
+
+        .boton-volver {
+                display: none;
+        }
+
+        .boton-volver-movil {
+                display: block;
+        }
+
+        #tablero {
+                max-width: 100vw;
+                height: 100vh;
+                align-items: flex-start;
+        }
+
+        .filas {
+                margin-top: -1px;
+                width: 100vw;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                height: auto;
+        }
+
+        .fila {
+                aspect-ratio: 17 / 1;
+                width: 100vw;
+        }
+
 }
