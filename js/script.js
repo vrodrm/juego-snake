@@ -37,7 +37,7 @@ function precargarImagenes() {
 }
 
 function evitarScroll() {
-        document.addEventListener('gesturestart', function (e) {
+        document.addEventListener('gesturestart', function(e) {
                 e.preventDefault();
         });
 }
@@ -45,7 +45,7 @@ function evitarScroll() {
 function recuperarPuntuaciones() {
         $.ajax({
                 url: "php/recuperar_puntuaciones.php"
-        }).done(function (datos) {
+        }).done(function(datos) {
                 let puntuaciones = JSON.parse(datos);
                 document.getElementById('contenedor-tabla-puntuaciones').appendChild(crearTablaPuntuaciones(puntuaciones));
         });
