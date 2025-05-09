@@ -203,13 +203,61 @@ body {
         background-image: none;
 }
 
-.cola {
+.cola-derecha {
         height: 100%;
         width: 100%;
-        background-image: url('../assets/img/cola.png');
+        background-image: url('../assets/img/cola-derecha.png');
         background-size: cover;
 }
 
+.cola-izquierda {
+        height: 100%;
+        width: 100%;
+        background-image: url('../assets/img/cola-izquierda.png');
+        background-size: cover;
+}
+
+.cola-abajo {
+        height: 100%;
+        width: 100%;
+        background-image: url('../assets/img/cola-abajo.png');
+        background-size: cover;
+}
+
+.cola-arriba {
+        height: 100%;
+        width: 100%;
+        background-image: url('../assets/img/cola-arriba.png');
+        background-size: cover;
+}
+
+.giro-arriba-derecha{
+        height: 100%;
+        width: 100%;
+        background-image: url('../assets/img/giro_arriba_derecha.png');
+        background-size: cover;
+}
+
+.giro-abajo-derecha{
+        height: 100%;
+        width: 100%;
+        background-image: url('../assets/img/giro_abajo_derecha.png');
+        background-size: cover;
+}
+
+.giro-arriba-izquierda{
+        height: 100%;
+        width: 100%;
+        background-image: url('../assets/img/giro_arriba_izquierda.png');
+        background-size: cover;
+}
+
+.giro-abajo-izquierda{
+        height: 100%;
+        width: 100%;
+        background-image: url('../assets/img/giro_abajo_izquierda.png');
+        background-size: cover;
+}
 .estrella {
         height: 100%;
         width: 100%;

@@ -22,7 +22,14 @@ const imagenes = {
     cabezaAbajo: './assets/img/cabeza_abajo.png',
     cabezaIzquierda: './assets/img/cabeza_izquierda.png',
     cabezaDerecha: './assets/img/cabeza_derecha.png',
-    cola: './assets/img/cola.png',
+    colaDerecha: './assets/img/cola-derecha.png',
+    colaArriba: './assets/img/cola-arriba.png',
+    colaAbajo: './assets/img/cola-abajo.png',
+    colaIzquierda: './assets/img/cola-derecha.png',
+    giroArribaDerecha: './assets/img/giro_arriba_derecha.png',
+    giroArribaIzquierda: './assets/img/giro_arriba_izquierda.png',
+    giroAbajoDerecha: './assets/img/giro_abajo_derecha.png',
+    giroAbajoIzquierda: './assets/img/giro_abajo_izquierda.png',
     estrella: './assets/img/estrella.svg'
 };
 
@@ -117,7 +124,7 @@ function situacionInicialTablero() {
     tablero[2][7] = 3;
     tablero[3][7] = 2;
     tablero[4][7] = 1;
-    document.getElementById('img2-7').className = 'cola';
+    document.getElementById('img2-7').className = 'cola-derecha';
     document.getElementById('img3-7').className = 'cuerpo-horizontal';
     document.getElementById('img4-7').className = 'cabeza-derecha';
     longitudSerpiente = 3;
@@ -176,7 +183,24 @@ function actualizarTablero(velocidadMilisegundos) {
         for (let i = 0; i < 17; i++) {
             for (let j = 0; j < 15; j++) {
                 if (tablero[i][j] === longitudSerpiente - 1) {
-                    document.getElementById('img' + i + '-' + j).className = 'cola';
+                    //Buscamos la direccion hacia la que pintar la cola
+
+                    //Izquierda
+                    if (i != 0 && tablero[i - 1][j] == longitudSerpiente - 2) {
+                        document.getElementById('img' + i + '-' + j).className = 'cola-izquierda';
+                    }
+                    //Derecha
+                    else if (i != 16 && tablero[i + 1][j] == longitudSerpiente - 2) {
+                        document.getElementById('img' + i + '-' + j).className = 'cola-derecha';
+                    }
+                    //Abajo
+                    else if (j != 14 && tablero[i][j + 1] == longitudSerpiente - 2) {
+                        document.getElementById('img' + i + '-' + j).className = 'cola-abajo';
+                    }
+                    //Arriba
+                    else if (j != 0 && tablero[i][j - 1] == longitudSerpiente - 2) {
+                        document.getElementById('img' + i + '-' + j).className = 'cola-arriba';
+                    }
                     break;
                 }
             }
@@ -198,7 +222,13 @@ function actualizarTablero(velocidadMilisegundos) {
                     nuevaX = xCabeza;
                     nuevaY = yCabeza - 1;
                     comprobarLimites(nuevaX, nuevaY);
-                    document.getElementById('img' + xCabeza + '-' + yCabeza).className = 'cuerpo-vertical';
+                    if (direccion == IZQUIERDA) {
+                        document.getElementById('img' + xCabeza + '-' + yCabeza).className = 'giro-arriba-derecha';
+                    } else if (direccion == DERECHA) {
+                        document.getElementById('img' + xCabeza + '-' + yCabeza).className = 'giro-arriba-izquierda';
+                    } else {
+                        document.getElementById('img' + xCabeza + '-' + yCabeza).className = 'cuerpo-vertical';
+                    }
                     document.getElementById('img' + xCabeza + '-' + (yCabeza - 1)).className = 'cabeza-arriba';
                     direccion = ARRIBA;
                 } else {
@@ -214,7 +244,13 @@ function actualizarTablero(velocidadMilisegundos) {
                     nuevaX = xCabeza;
                     nuevaY = yCabeza + 1;
                     comprobarLimites(nuevaX, nuevaY);
-                    document.getElementById('img' + xCabeza + '-' + yCabeza).className = 'cuerpo-vertical';
+                    if (direccion == IZQUIERDA) {
+                        document.getElementById('img' + xCabeza + '-' + yCabeza).className = 'giro-abajo-derecha';
+                    } else if (direccion == DERECHA) {
+                        document.getElementById('img' + xCabeza + '-' + yCabeza).className = 'giro-abajo-izquierda';
+                    } else {
+                        document.getElementById('img' + xCabeza + '-' + yCabeza).className = 'cuerpo-vertical';
+                    }
                     document.getElementById('img' + xCabeza + '-' + (yCabeza + 1)).className = 'cabeza-abajo';
                     direccion = ABAJO;
                 } else {
@@ -230,7 +266,13 @@ function actualizarTablero(velocidadMilisegundos) {
                     nuevaX = xCabeza + 1;
                     nuevaY = yCabeza;
                     comprobarLimites(nuevaX, nuevaY);
-                    document.getElementById('img' + xCabeza + '-' + yCabeza).className = 'cuerpo-horizontal';
+                    if (direccion == ARRIBA) {
+                        document.getElementById('img' + xCabeza + '-' + yCabeza).className = 'giro-abajo-derecha';
+                    } else if (direccion == ABAJO) {
+                        document.getElementById('img' + xCabeza + '-' + yCabeza).className = 'giro-arriba-derecha';
+                    } else {
+                        document.getElementById('img' + xCabeza + '-' + yCabeza).className = 'cuerpo-horizontal';
+                    }
                     document.getElementById('img' + (xCabeza + 1) + '-' + yCabeza).className = 'cabeza-derecha';
                     direccion = DERECHA;
                 } else {
@@ -246,7 +288,13 @@ function actualizarTablero(velocidadMilisegundos) {
                     nuevaX = xCabeza - 1;
                     nuevaY = yCabeza;
                     comprobarLimites(nuevaX, nuevaY);
-                    document.getElementById('img' + xCabeza + '-' + yCabeza).className = 'cuerpo-horizontal';
+                    if (direccion == ARRIBA) {
+                        document.getElementById('img' + xCabeza + '-' + yCabeza).className = 'giro-abajo-izquierda';
+                    } else if (direccion == ABAJO) {
+                        document.getElementById('img' + xCabeza + '-' + yCabeza).className = 'giro-arriba-izquierda';
+                    } else {
+                        document.getElementById('img' + xCabeza + '-' + yCabeza).className = 'cuerpo-horizontal';
+                    }
                     document.getElementById('img' + (xCabeza - 1) + '-' + yCabeza).className = 'cabeza-izquierda';
                     direccion = IZQUIERDA;
                 } else {
