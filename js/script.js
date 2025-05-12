@@ -12,6 +12,7 @@ let direccion = DERECHA;
 let nuevaDireccion = DERECHA;
 let longitudSerpiente;
 let tiempo;
+let puntuacion;
 
 
 // Rutas de las imagenes para cargarlas desde js
@@ -44,7 +45,7 @@ function precargarImagenes() {
 }
 
 function evitarScroll() {
-    document.addEventListener('gesturestart', function(e) {
+    document.addEventListener('gesturestart', function (e) {
         e.preventDefault();
     });
 }
@@ -52,7 +53,7 @@ function evitarScroll() {
 function recuperarPuntuaciones() {
     $.ajax({
         url: "php/recuperar_puntuaciones.php"
-    }).done(function(datos) {
+    }).done(function (datos) {
         let puntuaciones = JSON.parse(datos);
         document.getElementById('contenedor-tabla-puntuaciones').appendChild(crearTablaPuntuaciones(puntuaciones));
     });
@@ -91,10 +92,34 @@ function crearTablaPuntuaciones(puntuaciones) {
     return tabla;
 }
 
+// Esto está sacado de la documentación de jQuery
+function prepararFormulario() {
+    // Asociamos evento onsubmit al formulario
+    $("#formulario-puntuacion").on("submit", function (event) {
+
+        // Con esta función evitamos que el formulario se envie sin AJAX
+        event.preventDefault();
+
+        let nombre = $("#nombre").val();
+
+        // Enviamos los datos por POST
+        $.post("php/registrar_puntuacion.php", {
+            nombre: nombre,
+            puntuacion: puntuacion
+        }, function (data) {
+            // "Callback"
+
+            $("#boton-enviar").css("display", "none");
+
+            $("#boton-volver-form").css("display", "block");
+        });
+    });
+}
 
 function inicio() {
-    recuperarPuntuaciones();
     precargarImagenes();
+
+    prepararFormulario();
 
     //Añadimos event listener para manejar cuando el usuario pulsa las teclas
     onkeydown = (KeyboardEvent) => {
@@ -106,7 +131,7 @@ function inicio() {
     situacionInicialTablero();
 
     setTimeout(() => {
-        actualizarTablero(100);
+        actualizarTablero(150);
     }, 1000);
 }
 
@@ -116,6 +141,7 @@ function situacionInicialTablero() {
         tablero[i] = [];
         for (let j = 0; j < 15; j++) {
             tablero[i][j] = VACIO;
+            document.getElementById('img' + i + '-' + j).className = 'vacio';
         }
     }
 
@@ -129,6 +155,12 @@ function situacionInicialTablero() {
     document.getElementById('img4-7').className = 'cabeza-derecha';
     longitudSerpiente = 3;
 
+    direccion = DERECHA;
+    nuevaDireccion = DERECHA;
+
+    puntuacion = 0;
+    document.getElementById('puntuacion').textContent = puntuacion;
+
     colocarEstrella();
 }
 
@@ -136,6 +168,11 @@ function entrarTablero() {
     document.getElementById('titulo').className = 'salir';
     document.getElementById('tablero').className = 'entrar';
     inicio();
+}
+
+function salirTablero() {
+    document.getElementById('titulo').className = 'entrar';
+    document.getElementById('tablero').className = 'salir';
 }
 
 function entrarPuntuaciones() {
@@ -311,6 +348,8 @@ function actualizarTablero(velocidadMilisegundos) {
         if (tablero[nuevaX][nuevaY] == ESTRELLA) {
             tablero[nuevaX][nuevaY] = 1;
             longitudSerpiente++;
+            puntuacion++;
+            document.getElementById('puntuacion').textContent = puntuacion;
             colocarEstrella();
         } else {
             // Comprobamos si nos hemos chocado
@@ -331,7 +370,32 @@ function comprobarLimites(x, y) {
 
 function gameOver() {
     clearInterval(tiempo);
-    alert('Game Over');
+
+    console.log(document.getElementById('ventana-gameover'));
+
+    document.getElementById('ventana-gameover').className = 'entrar';
+
+    $("#boton-enviar").css("display", "block");
+
+    $("#boton-volver-form").css("display", "none");
+}
+
+function volverAJugar() {
+    document.getElementById('ventana-gameover').className = 'salir';
+
+    situacionInicialTablero();
+
+    setTimeout(() => {
+        actualizarTablero(150);
+    }, 500);
+}
+
+function volverAInicio() {
+    document.getElementById('ventana-gameover').className = 'salir';
+
+    setTimeout(() => {
+        salirTablero();
+    }, 500);
 }
 
 function cambiarDireccion(codigoTecla) {
