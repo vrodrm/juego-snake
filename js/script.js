@@ -107,11 +107,20 @@ function prepararFormulario() {
             nombre: nombre,
             puntuacion: puntuacion
         }, function (data) {
-            // "Callback"
 
-            $("#boton-enviar").css("display", "none");
+            $("#boton-enviar").css('display', 'none');
+            $("#boton-enviado").css('display', 'block');
 
-            $("#boton-volver-form").css("display", "block");
+            // "Callback", el script devuelve 0 si se ha registrado la puntuación,
+            //  1 si el usuario ya tenía una puntaución más alta
+
+            setTimeout(() => {
+                if (data == 0) {
+                    $("#boton-enviado").text('Puntuacion guardada');
+                } else {
+                    $("#boton-enviado").text('Puntuacion no guardada');
+                }
+            }, 300);
         });
     });
 }
@@ -377,7 +386,8 @@ function gameOver() {
 
     $("#boton-enviar").css("display", "block");
 
-    $("#boton-volver-form").css("display", "none");
+    $("#boton-enviado").css("display", "none");
+    $("#boton-enviado").text('Guardando...');
 }
 
 function volverAJugar() {
@@ -391,11 +401,13 @@ function volverAJugar() {
 }
 
 function volverAInicio() {
-    document.getElementById('ventana-gameover').className = 'salir';
+    salirTablero();
 
-    setTimeout(() => {
-        salirTablero();
-    }, 500);
+    if (document.querySelector('#ventana-gameover').className == 'entrar') {
+        document.querySelector('#ventana-gameover').className = 'salir';
+    }
+
+    clearTimeout(tiempo);
 }
 
 function cambiarDireccion(codigoTecla) {

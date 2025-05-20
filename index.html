@@ -34,7 +34,16 @@
         </div>
 
         <div id="tablero">
-            <h1>Puntuacion: <span id="puntuacion"></span></h1>
+            <div class="titulo-tablero">
+                <div class="centrar-titulo"> </div>
+                <div class="titulo-div">
+                    <h1>Puntuacion: <span id="puntuacion"></span></h1>
+                </div>
+                <div class="botones-tablero">
+                    <button type="button" class="boton-volver-tablero" onclick="volverAInicio()">Volver</button>
+                    <button type="button" class="boton-volver-tablero-movil" onclick="volverAInicio()"> > </button>
+                </div>
+            </div>
             <div class="filas">
                 <div class="fila">
                     <div class="casilla"></div>
@@ -341,9 +350,10 @@
                 <label for="nombre">Introduce tu nombre para guardar tu puntuacion</label>
                 <input type="text" name="nombre" id="nombre">
                 <div id="botones-gameover">
-                        <button type="button" onclick="volverAJugar()">Volver a jugar</button>
-                        <button id="boton-enviar" type="submit">Enviar</button>
-                        <button type="button" id="boton-volver-form" onclick="volverAInicio()">Inicio</button>
+                    <button type="button" onclick="volverAJugar()">Volver a jugar</button>
+                    <button id="boton-enviar" type="submit">Enviar</button>
+                    <button type="button" id="boton-volver-form" onclick="volverAInicio()">Inicio</button>
+                    <button type="button" id="boton-enviado">Guardando...</button>
                 </div>
             </form>
         </div>

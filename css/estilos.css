@@ -43,7 +43,7 @@ body {
     position: absolute;
     padding: 20px;
     transform: translate(0%, -500%);
-    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
 }
 
 #ventana-gameover.entrar {
@@ -76,6 +76,14 @@ body {
     border: none;
 }
 
+#boton-enviado {
+    cursor: not-allowed;
+    background-color: grey;
+    font-size: 13px !important;
+    color: white;
+    display: none;
+}
+
 #boton-enviar {
     background-color: #141D73;
     color: white;
@@ -101,6 +109,46 @@ body {
     width: 300px;
     font-size: 18px;
     height: 33px;
+}
+
+.centrar-titulo{
+    flex-grow: 1;
+}
+
+.titulo-tablero{
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.titulo-div{
+    display: flex;
+    align-items: center;
+}
+
+.botones-tablero{
+    flex-grow: 1;
+    flex-basis: 0;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.boton-volver-tablero{
+    font-family: 'Torus';
+    margin-right: 30%;
+    height: 40px;
+    width: 100px;
+    border: none;
+    border-radius: 40px;
+    cursor: pointer;
+    background-color: #efcd0e;
+    font-size: 20px;
+}
+
+.boton-volver-tablero-movil{
+    display: none;
 }
 
 #tablero {
@@ -134,11 +182,12 @@ body {
 
 .filas {
     width: 510px;
-    height: 510px;
+    height: 450px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin-bottom: 40px;
 }
 
 .fila {
@@ -197,7 +246,7 @@ body {
     animation: entrar-titulo-izquierda 1s forwards;
 }
 
-#titulo.entrar{
+#titulo.entrar {
     animation: entrar-titulo 1s forwards;
 }
 
@@ -408,6 +457,19 @@ body {
     margin-left: 16px;
     padding-bottom: 13px;
     font-family: 'Torus';
+    margin-top: 4px;
+}
+
+.boton-volver-tablero-movil {
+    display: none;
+    margin-right: auto;
+    font-size: 50px;
+    border: none;
+    background-color: white;
+    margin-left: 16px;
+    padding-bottom: 13px;
+    font-family: 'Torus';
+    margin-top: 4px;
 }
 
 #contenedor-tabla-puntuaciones {
@@ -568,7 +630,7 @@ body {
     }
 }
 
-@keyframes entrar-titulo{
+@keyframes entrar-titulo {
     0% {
         transform: translate(400%, -50%);
     }
@@ -625,7 +687,7 @@ body {
         transform: translate(0%, 0%);
     }
 
-    35% {
+    25% {
         transform: translate(7%, 0%);
     }
 
@@ -655,6 +717,14 @@ body {
     }
 
     .boton-volver-movil {
+        display: block;
+    }
+
+    .boton-volver-tablero {
+        display: none;
+    }
+
+    .boton-volver-tablero-movil {
         display: block;
     }
 
