@@ -738,13 +738,12 @@ body {
     }
 
     .filas {
-        margin-top: -1px;
         width: 100vw;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        height: auto;
+        margin-bottom: 0;
     }
 
     .fila {
@@ -774,5 +773,13 @@ body {
         color: #141D73;
         border-radius: 8px;
         font-size: 50px;
+    }
+
+    .titulo-tablero{
+        height: 100px;
+    }
+
+    .palabra3{
+        font-size: 45px;
     }
 }
