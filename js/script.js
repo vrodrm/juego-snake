@@ -14,6 +14,8 @@ let longitudSerpiente;
 let tiempo;
 let puntuacion;
 
+let sonidoEstrella = new Audio('./assets/audio/cling.mp3');
+let sonidoMuerte = new Audio('./assets/audio/muerte.mp3');
 
 // Rutas de las imagenes para cargarlas desde js
 const imagenes = {
@@ -401,6 +403,8 @@ function actualizarTablero(velocidadMilisegundos) {
             longitudSerpiente++;
             puntuacion++;
             document.getElementById('puntuacion').textContent = puntuacion;
+            sonidoEstrella.currentTime = 0;
+            sonidoEstrella.play();
             colocarEstrella();
         } else {
             // Comprobamos si nos hemos chocado
@@ -433,6 +437,7 @@ function salirGameOver() {
 
 function gameOver() {
     clearInterval(tiempo);
+    sonidoMuerte.play();
 
     entrarGameOver();
 
