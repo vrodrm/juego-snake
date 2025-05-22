@@ -181,17 +181,44 @@ function situacionInicialTablero() {
 function entrarTablero() {
     document.getElementById('titulo').className = 'salir';
     document.getElementById('tablero').className = 'entrar';
+    // Mostramos el tablero
+    document.getElementById('tablero').style.display = 'flex';
+
+    //Deshabilitamos botones del menu por si acaso
+    let botonesInicio = document.querySelectorAll('.boton-titulo');
+    botonesInicio.forEach(boton => {
+        boton.disabled = true;
+    })
+
     inicio();
 }
 
 function salirTablero() {
     document.getElementById('titulo').className = 'entrar';
     document.getElementById('tablero').className = 'salir';
+
+    // Habilitamos botones del menu
+    let botonesInicio = document.querySelectorAll('.boton-titulo');
+    botonesInicio.forEach(boton => {
+        boton.disabled = false;
+    })
+
+    //Ocultamos el tablero tras la animacion
+    setTimeout(() => {
+        document.getElementById('tablero').style.display = 'none';
+    }, 1000);
 }
 
 function entrarPuntuaciones() {
     document.getElementById('titulo').className = 'salir-izquierda';
     document.getElementById('puntuaciones').className = 'entrar';
+    document.getElementById('puntuaciones').style.display = 'flex';
+
+    //Deshabilitamos botones del menu por si acaso
+    let botonesInicio = document.querySelectorAll('.boton-titulo');
+    botonesInicio.forEach(boton => {
+        boton.disabled = true;
+    })
 
     recuperarPuntuaciones();
 }
@@ -200,8 +227,18 @@ function salirPuntuaciones() {
     document.getElementById('titulo').className = 'entrar-izquierda';
     document.getElementById('puntuaciones').className = 'salir';
 
+    // Habilitamos botones del menu
+    let botonesInicio = document.querySelectorAll('.boton-titulo');
+    botonesInicio.forEach(boton => {
+        boton.disabled = false;
+    })
+
     //Eliminamos la tabla puntuaciones
     document.getElementById('tabla-puntuaciones').remove();
+    //Ocultamos la ventana tras la animacion
+    setTimeout(() => {
+        document.getElementById('puntuaciones').style.display = 'none';
+    }, 1000);
 }
 
 function actualizarTablero(velocidadMilisegundos) {
@@ -382,12 +419,22 @@ function comprobarLimites(x, y) {
     }
 }
 
+function entrarGameOver() {
+    document.getElementById('ventana-gameover').className = 'entrar';
+    document.getElementById('ventana-gameover').style.display = 'block';
+}
+
+function salirGameOver() {
+    document.getElementById('ventana-gameover').className = 'salir';
+    setTimeout(() => {
+        document.getElementById('ventana-gameover').style.display = 'none';
+    }, 600);
+}
+
 function gameOver() {
     clearInterval(tiempo);
 
-    console.log(document.getElementById('ventana-gameover'));
-
-    document.getElementById('ventana-gameover').className = 'entrar';
+    entrarGameOver();
 
     $("#boton-enviar").css("display", "block");
 
@@ -396,7 +443,7 @@ function gameOver() {
 }
 
 function volverAJugar() {
-    document.getElementById('ventana-gameover').className = 'salir';
+    salirGameOver();
 
     situacionInicialTablero();
 
@@ -409,7 +456,7 @@ function volverAInicio() {
     salirTablero();
 
     if (document.querySelector('#ventana-gameover').className == 'entrar') {
-        document.querySelector('#ventana-gameover').className = 'salir';
+        salirGameOver();
     }
 
     clearTimeout(tiempo);
