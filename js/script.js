@@ -102,6 +102,11 @@ function prepararFormulario() {
 
         let nombre = $("#nombre").val();
 
+        // Comprobamos que nombre no esté vacío
+        if (nombre == "") {
+            return;
+        }
+
         // Enviamos los datos por POST
         $.post("php/registrar_puntuacion.php", {
             nombre: nombre,

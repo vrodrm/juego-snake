@@ -348,7 +348,7 @@
             <h1>Game Over</h1>
             <form id="formulario-puntuacion" action="/">
                 <label for="nombre">Introduce tu nombre para guardar tu puntuacion</label>
-                <input type="text" name="nombre" id="nombre">
+                <input type="text" minlength="3" maxlength="20" name="nombre" id="nombre">
                 <div id="botones-gameover">
                     <button type="button" onclick="volverAJugar()">Volver a jugar</button>
                     <button id="boton-enviar" type="submit">Enviar</button>
