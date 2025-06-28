@@ -13,6 +13,8 @@ let nuevaDireccion = DERECHA;
 let longitudSerpiente;
 let tiempo;
 let puntuacion;
+let timerOcultarTablero;
+let timerEmpezarJuego;
 
 let sonidoEstrella = new Audio('./assets/audio/cling.mp3');
 let sonidoMuerte = new Audio('./assets/audio/muerte.mp3');
@@ -146,7 +148,7 @@ function inicio() {
 
     situacionInicialTablero();
 
-    setTimeout(() => {
+    timerEmpezarJuego = setTimeout(() => {
         actualizarTablero(150);
     }, 1000);
 }
@@ -181,6 +183,9 @@ function situacionInicialTablero() {
 }
 
 function entrarTablero() {
+    // Prevenimos que el tablero se oculte si el usuario le da muy rapido a jugar despues de salir del tablero
+    clearTimeout(timerOcultarTablero);
+
     document.getElementById('titulo').className = 'salir';
     document.getElementById('tablero').className = 'entrar';
     // Mostramos el tablero
@@ -196,6 +201,9 @@ function entrarTablero() {
 }
 
 function salirTablero() {
+    //Por si el usuario le da a volver antes de empezar el juego
+    clearTimeout(timerEmpezarJuego);
+
     document.getElementById('titulo').className = 'entrar';
     document.getElementById('tablero').className = 'salir';
 
@@ -206,7 +214,7 @@ function salirTablero() {
     })
 
     //Ocultamos el tablero tras la animacion
-    setTimeout(() => {
+    timerOcultarTablero = setTimeout(() => {
         document.getElementById('tablero').style.display = 'none';
     }, 1000);
 }
